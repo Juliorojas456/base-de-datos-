@@ -1,0 +1,191 @@
+USE [master]
+GO
+/****** Object:  Database [supli_cord]    Script Date: 30/4/2023 2:22:42 a. m. ******/
+CREATE DATABASE [supli_cord]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'supli_cord', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\supli_cord.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'supli_cord_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\supli_cord_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT, LEDGER = OFF
+GO
+ALTER DATABASE [supli_cord] SET COMPATIBILITY_LEVEL = 160
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [supli_cord].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [supli_cord] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [supli_cord] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [supli_cord] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [supli_cord] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [supli_cord] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [supli_cord] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [supli_cord] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [supli_cord] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [supli_cord] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [supli_cord] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [supli_cord] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [supli_cord] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [supli_cord] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [supli_cord] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [supli_cord] SET  ENABLE_BROKER 
+GO
+ALTER DATABASE [supli_cord] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [supli_cord] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [supli_cord] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [supli_cord] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [supli_cord] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [supli_cord] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [supli_cord] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [supli_cord] SET RECOVERY FULL 
+GO
+ALTER DATABASE [supli_cord] SET  MULTI_USER 
+GO
+ALTER DATABASE [supli_cord] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [supli_cord] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [supli_cord] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [supli_cord] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [supli_cord] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [supli_cord] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'supli_cord', N'ON'
+GO
+ALTER DATABASE [supli_cord] SET QUERY_STORE = ON
+GO
+ALTER DATABASE [supli_cord] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEANUP_POLICY = (STALE_QUERY_THRESHOLD_DAYS = 30), DATA_FLUSH_INTERVAL_SECONDS = 900, INTERVAL_LENGTH_MINUTES = 60, MAX_STORAGE_SIZE_MB = 1000, QUERY_CAPTURE_MODE = AUTO, SIZE_BASED_CLEANUP_MODE = AUTO, MAX_PLANS_PER_QUERY = 200, WAIT_STATS_CAPTURE_MODE = ON)
+GO
+USE [supli_cord]
+GO
+/****** Object:  Table [dbo].[Infomacion de Envio]    Script Date: 30/4/2023 2:22:42 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Infomacion de Envio](
+	[producto_id] [int] NOT NULL,
+	[nombre] [varchar](50) NOT NULL,
+	[descripcion] [varchar](255) NULL,
+	[precio] [decimal](10, 2) NOT NULL,
+	[cantidad] [int] NOT NULL,
+	[material_id] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[producto_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Informacion de Rutas ]    Script Date: 30/4/2023 2:22:42 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Informacion de Rutas ](
+	[historial_id] [int] NOT NULL,
+	[fecha_inicio] [date] NOT NULL,
+	[fecha_fin] [date] NULL,
+	[puesto] [varchar](50) NOT NULL,
+	[descripcion] [varchar](255) NULL,
+	[empleado_id] [int] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[historial_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[proveedores]    Script Date: 30/4/2023 2:22:42 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[proveedores](
+	[proveedor_id] [int] NOT NULL,
+	[nombre] [varchar](50) NOT NULL,
+	[direccion] [varchar](255) NULL,
+	[telefono] [varchar](20) NULL,
+	[email] [varchar](50) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[proveedor_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[Usuarios]    Script Date: 30/4/2023 2:22:42 a. m. ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Usuarios](
+	[cliente_id] [int] NOT NULL,
+	[nombre] [varchar](50) NOT NULL,
+	[direccion] [varchar](255) NULL,
+	[telefono] [varchar](20) NULL,
+	[email] [varchar](50) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[cliente_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+INSERT [dbo].[Infomacion de Envio] ([producto_id], [nombre], [descripcion], [precio], [cantidad], [material_id]) VALUES (1, N'pc', N'Una sola unidad ', CAST(20050.00 AS Decimal(10, 2)), 3, 3)
+INSERT [dbo].[Infomacion de Envio] ([producto_id], [nombre], [descripcion], [precio], [cantidad], [material_id]) VALUES (3, N'reloj ', N'Siete unidades', CAST(36000.00 AS Decimal(10, 2)), 7, 2)
+INSERT [dbo].[Infomacion de Envio] ([producto_id], [nombre], [descripcion], [precio], [cantidad], [material_id]) VALUES (4, N'Computadoras', N'Gande y nueve unidades', CAST(40000.00 AS Decimal(10, 2)), 9, 1)
+INSERT [dbo].[Infomacion de Envio] ([producto_id], [nombre], [descripcion], [precio], [cantidad], [material_id]) VALUES (5, N'Audifonos', N'Blanco y Negro', CAST(3200.00 AS Decimal(10, 2)), 2, 4)
+INSERT [dbo].[Infomacion de Envio] ([producto_id], [nombre], [descripcion], [precio], [cantidad], [material_id]) VALUES (6, N'Cristal', N'Verde y dies unidades', CAST(40000.00 AS Decimal(10, 2)), 3, 1)
+INSERT [dbo].[Infomacion de Envio] ([producto_id], [nombre], [descripcion], [precio], [cantidad], [material_id]) VALUES (7, N' Madera', N'Marron y cuarenta ', CAST(1200000.00 AS Decimal(10, 2)), 40, 12)
+INSERT [dbo].[Infomacion de Envio] ([producto_id], [nombre], [descripcion], [precio], [cantidad], [material_id]) VALUES (8, N'tv', N'Negro y 50', CAST(2000000.00 AS Decimal(10, 2)), 30, 34)
+INSERT [dbo].[Infomacion de Envio] ([producto_id], [nombre], [descripcion], [precio], [cantidad], [material_id]) VALUES (9, N'pc', N'treinta unidades', CAST(290000.00 AS Decimal(10, 2)), 30, 3)
+INSERT [dbo].[Infomacion de Envio] ([producto_id], [nombre], [descripcion], [precio], [cantidad], [material_id]) VALUES (10, N'Cable ', N'negro y neventa', CAST(5000000.00 AS Decimal(10, 2)), 100, 5)
+GO
+INSERT [dbo].[Informacion de Rutas ] ([historial_id], [fecha_inicio], [fecha_fin], [puesto], [descripcion], [empleado_id]) VALUES (12, CAST(N'2020-05-12' AS Date), CAST(N'2020-05-15' AS Date), N'Transporte', N'Materia Prima', 2)
+INSERT [dbo].[Informacion de Rutas ] ([historial_id], [fecha_inicio], [fecha_fin], [puesto], [descripcion], [empleado_id]) VALUES (13, CAST(N'2020-05-18' AS Date), CAST(N'2020-05-20' AS Date), N'Envio', N'Mercancia', 1)
+INSERT [dbo].[Informacion de Rutas ] ([historial_id], [fecha_inicio], [fecha_fin], [puesto], [descripcion], [empleado_id]) VALUES (14, CAST(N'2020-05-19' AS Date), CAST(N'2020-05-22' AS Date), N'Envio de Amazon', N'Paquete', 1)
+INSERT [dbo].[Informacion de Rutas ] ([historial_id], [fecha_inicio], [fecha_fin], [puesto], [descripcion], [empleado_id]) VALUES (15, CAST(N'2020-05-30' AS Date), CAST(N'2020-06-06' AS Date), N'Trasporte', N'Enbutidos', 2)
+INSERT [dbo].[Informacion de Rutas ] ([historial_id], [fecha_inicio], [fecha_fin], [puesto], [descripcion], [empleado_id]) VALUES (20, CAST(N'2020-05-30' AS Date), CAST(N'2020-06-03' AS Date), N'Envio', N'Material Gastable', 3)
+GO
+INSERT [dbo].[proveedores] ([proveedor_id], [nombre], [direccion], [telefono], [email]) VALUES (2, N'Amazon', N'Florida Usa', N'1 (234) 345-3423', N'amazon@ventas.com')
+INSERT [dbo].[proveedores] ([proveedor_id], [nombre], [direccion], [telefono], [email]) VALUES (3, N'eBey', N'New York', N'1 (233) 439-7844', N'eBeyjjj@gmail.com')
+INSERT [dbo].[proveedores] ([proveedor_id], [nombre], [direccion], [telefono], [email]) VALUES (4, N'Hermanos congo', N'RD', N'(849) 566-3265', N'n/a')
+INSERT [dbo].[proveedores] ([proveedor_id], [nombre], [direccion], [telefono], [email]) VALUES (5, N'Planta', N'RD', N'(809) 432-7923', N'Padst@hotmail.com')
+GO
+INSERT [dbo].[Usuarios] ([cliente_id], [nombre], [direccion], [telefono], [email]) VALUES (1, N'Marcos', N'Garcia', N'(809) 456-2368', N'n/a')
+INSERT [dbo].[Usuarios] ([cliente_id], [nombre], [direccion], [telefono], [email]) VALUES (2, N'Juan ', N'Pablo', N'(849) 657-2345', N'jp14566@gmail.com')
+INSERT [dbo].[Usuarios] ([cliente_id], [nombre], [direccion], [telefono], [email]) VALUES (3, N'Otis', N'Ricardo', N'(809) 956-3028', N'otis123@gmail.com')
+INSERT [dbo].[Usuarios] ([cliente_id], [nombre], [direccion], [telefono], [email]) VALUES (4, N'Jorge ', N'Sanchez', N'(809) 457-3456', N'jorgesanchez@gmail.com')
+INSERT [dbo].[Usuarios] ([cliente_id], [nombre], [direccion], [telefono], [email]) VALUES (5, N'Raul', N'Ortiz', N'(809) 564-1255', N'n/a')
+INSERT [dbo].[Usuarios] ([cliente_id], [nombre], [direccion], [telefono], [email]) VALUES (6, N'Daniel', N'Perrez', N'(849) 233-4032', N'ddperrez@gmail.com')
+INSERT [dbo].[Usuarios] ([cliente_id], [nombre], [direccion], [telefono], [email]) VALUES (7, N'Hector', N'Robles', N'(849) 552-3256', NULL)
+INSERT [dbo].[Usuarios] ([cliente_id], [nombre], [direccion], [telefono], [email]) VALUES (8, N'Roberto', N'Cisnero', N'(809) 623-2389', NULL)
+INSERT [dbo].[Usuarios] ([cliente_id], [nombre], [direccion], [telefono], [email]) VALUES (10, N'Luis', N'Garcia', N'(840) 344-5671', NULL)
+GO
+USE [master]
+GO
+ALTER DATABASE [supli_cord] SET  READ_WRITE 
+GO
